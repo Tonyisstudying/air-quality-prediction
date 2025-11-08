@@ -114,7 +114,7 @@ def train(model: nn.Module, train_loader: DataLoader, val_loader: DataLoader, ep
 
 def main():
     parser = argparse.ArgumentParser(description="Train LSTM for air quality forecasting (24h -> 1h)")
-    parser.add_argument('--data', type=str, default=os.path.join('air_quality_prediction', 'data', 'prepared', 'fused_imputed.csv'))
+    parser.add_argument('--data', type=str, default=os.path.join('data', 'prepared', 'fused_imputed.csv'))
     parser.add_argument('--target', type=str, default='pm2.5')
     parser.add_argument('--group_col', type=str, default='station')
     parser.add_argument('--input_len', type=int, default=24)
@@ -125,7 +125,7 @@ def main():
     parser.add_argument('--num_layers', type=int, default=2)
     parser.add_argument('--dropout', type=float, default=0.1)
     parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--save_dir', type=str, default=os.path.join('air_quality_prediction', 'models'))
+    parser.add_argument('--save_dir', type=str, default=os.path.join('models'))
     args = parser.parse_args()
 
     os.makedirs(args.save_dir, exist_ok=True)

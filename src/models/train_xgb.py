@@ -52,13 +52,13 @@ def build_features_targets(df: pd.DataFrame, target_col: str, group_col: str, in
 
 def main():
     parser = argparse.ArgumentParser(description="Train XGBoost for air quality forecasting")
-    parser.add_argument('--data', type=str, default=os.path.join('air_quality_prediction', 'data', 'prepared', 'fused_imputed.csv'))
+    parser.add_argument('--data', type=str, default=os.path.join('data', 'prepared', 'fused_imputed.csv'))
     parser.add_argument('--target', type=str, default='pm2.5')
     parser.add_argument('--group_col', type=str, default='station')
     parser.add_argument('--input_len', type=int, default=24)
     parser.add_argument('--output_len', type=int, default=1)
     parser.add_argument('--test_size', type=float, default=0.2)
-    parser.add_argument('--save_dir', type=str, default=os.path.join('air_quality_prediction', 'models'))
+    parser.add_argument('--save_dir', type=str, default=os.path.join('models'))
     parser.add_argument('--n_estimators', type=int, default=500)
     parser.add_argument('--max_depth', type=int, default=6)
     parser.add_argument('--learning_rate', type=float, default=0.05)
@@ -92,7 +92,7 @@ def main():
         tree_method='hist',  # faster for large datasets
         n_jobs=-1
     )
-    model.fit(X_train, y_train, eval_set=[(X_val, y_val)], early_stopping_rounds=50, verbose=True)
+    model.fit(X_train, y_train, eval_set=[(X_val, y_val)], callbacks=[xgb.callback.EarlyStopping(rounds=50)], verbose=True)
 
     # Evaluate
     y_pred = model.predict(X_val)
