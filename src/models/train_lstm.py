@@ -128,6 +128,14 @@ def main():
     parser.add_argument('--save_dir', type=str, default=os.path.join('models'))
     args = parser.parse_args()
 
+    # Check if model already exists
+    save_path = os.path.join(args.save_dir, 'lstm_model.pt')
+    if os.path.exists(save_path):
+        print(f"✓ Pre-trained LSTM model found at {save_path}")
+        print("  Skipping training. Delete the model file to retrain.")
+        print(f"  To retrain: del {save_path}")
+        return
+
     os.makedirs(args.save_dir, exist_ok=True)
 
     df = pd.read_csv(args.data)

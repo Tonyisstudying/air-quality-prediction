@@ -64,6 +64,14 @@ def main():
     parser.add_argument('--learning_rate', type=float, default=0.05)
     args = parser.parse_args()
 
+    # Check if model already exists
+    save_path = os.path.join(args.save_dir, 'xgb_model.pkl')
+    if os.path.exists(save_path):
+        print(f"✓ Pre-trained XGBoost model found at {save_path}")
+        print("  Skipping training. Delete the model file to retrain.")
+        print(f"  To retrain: del {save_path}")
+        return
+
     os.makedirs(args.save_dir, exist_ok=True)
 
     df = pd.read_csv(args.data)
