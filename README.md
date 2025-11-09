@@ -169,9 +169,6 @@ Contributions are welcome! Please:
 4. Push to branch (`git push origin feature/improvement`)
 5. Open a Pull Request
 
-## License
-
-This project is available for educational and research purposes.
 
 ## Acknowledgments
 
